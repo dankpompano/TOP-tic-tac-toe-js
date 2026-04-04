@@ -25,18 +25,54 @@ const gameBoard = () => {
       }
     }
   }
-  return { board, checkWin };
+
+  function isValid(board) {
+    for (let i = 0; i < board.length; ++i) {
+      for (let j = 0; j < board.length; ++j) {
+        if (board[i][j] == "0") {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  return { board, checkWin, isValid };
 };
 
-function player(name, letter) {
-  return { name, letter };
+function player(name, letter, turn) {
+  return { name, letter, turn };
 }
 
 const playGame = () => {
-  function playerTurn(player1 = true, player2 = false) {}
-  player1 = player("name1", "X");
-  player2 = player("name2", "O");
+  function currentPlayer(player1, player2) {
+    let currentPlayer;
+    if (player1.turn == true) {
+      currentPlayer = player1;
+      return currentPlayer;
+    } else if (player2.turn == true) {
+      currentPlayer = player2;
+      return currentPlayer;
+    }
+  }
+
+  function makeMove(player, board, x, y) {
+    board[x][y] = player.letter;
+    return board;
+  }
+
+  function prompt() {
+    console.log("Where would you like to play? Ex: A1");
+  }
+
+  function printBoard(board) {
+    console.log(" || || || ");
+  }
+
+  player1 = player("name1", "X", true);
+  player2 = player("name2", "O", false);
   board = gameBoard;
 
-  while (board.checkWin != true) {}
+  while (board.checkWin != true) {
+    player = currentPlayer(player1, player2);
+  }
 };
