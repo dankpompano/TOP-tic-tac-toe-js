@@ -65,14 +65,28 @@ const playGame = () => {
   }
 
   function printBoard(board) {
-    console.log(" || || || ");
+    console.log(`
+     |  1   2   3
+    -----------------
+  A |  ${board[0][0]} | ${board[0][1]} | ${board[0][2]}
+    -----------------
+  B |  ${board[1][0]} | ${board[1][1]} | ${board[1][2]}
+    -----------------
+  C |  ${board[2][0]} | ${board[2][1]} | ${board[2][2]}
+    -----------------
+  `);
   }
 
   player1 = player("name1", "X", true);
   player2 = player("name2", "O", false);
-  board = gameBoard;
+  board = gameBoard();
 
   while (board.checkWin != true) {
     player = currentPlayer(player1, player2);
+    board = printBoard(board);
+    prompt();
+    let x = process.argv[1];
+    let y = process.argv[1];
+    makeMove(player, board, x, y);
   }
 };
